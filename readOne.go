@@ -7,14 +7,14 @@ import (
 	"os"
 )
 
-func GetIssues() (*[]GitHubIssue, error) {
-	//https://api.github.com/repos/{owner}/{repo}/issues
-
+func GetIssue() (*GitHubIssue, error) {
+	//https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}
 	owner := os.Args[1]
 	repo := os.Args[2]
 	accessToken := os.Args[3]
+	issueNumber := os.Args[4]
 
-	url := "https://api.github.com/repos/" + owner + "/" + repo + "/issues"
+	url := "https://api.github.com/repos/" + owner + "/" + repo + "/issues/" + issueNumber
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func GetIssues() (*[]GitHubIssue, error) {
 		return nil, fmt.Errorf("failed to create issue: %s", resp.Status)
 	}
 
-	var issue []GitHubIssue
+	var issue GitHubIssue
 	err = json.NewDecoder(resp.Body).Decode(&issue)
 	if err != nil {
 		return nil, err
