@@ -10,9 +10,9 @@ import (
 func GetIssues() (*[]GitHubIssue, error) {
 	//https://api.github.com/repos/{owner}/{repo}/issues
 
-	owner := os.Args[1]
-	repo := os.Args[2]
-	accessToken := os.Args[3]
+	owner := os.Args[2]
+	repo := os.Args[3]
+	accessToken := os.Args[4]
 
 	url := "https://api.github.com/repos/" + owner + "/" + repo + "/issues"
 	req, err := http.NewRequest("GET", url, nil)

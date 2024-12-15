@@ -11,14 +11,14 @@ import (
 
 func CreateIssue() (*GitHubIssue, error) {
 	//POST /repos/{owner}/{repo}/issues
-	owner := os.Args[1]
-	repo := os.Args[2]
-	accessToken := os.Args[3]
-	assignees := os.Args[4]
-	milestone := os.Args[5]
-	labels := os.Args[6]
-	title := os.Args[7]
-	body := os.Args[8]
+	owner := os.Args[2]
+	repo := os.Args[3]
+	accessToken := os.Args[4]
+	assignees := os.Args[5]
+	milestone := os.Args[6]
+	labels := os.Args[7]
+	title := os.Args[8]
+	body := os.Args[9]
 
 	var userNames []string
 	err := json.Unmarshal([]byte(assignees), &userNames)
@@ -50,7 +50,7 @@ func CreateIssue() (*GitHubIssue, error) {
 		return nil, err
 	}
 
-	url := " https://api.github.com/repos/" + owner + "/" + repo + "/issues"
+	url := "https://api.github.com/repos/" + owner + "/" + repo + "/issues"
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
 		return nil, err

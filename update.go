@@ -10,16 +10,17 @@ import (
 )
 
 func UpdateIssue() error {
-	owner := os.Args[1]
-	repo := os.Args[2]
-	issueNumber := os.Args[3]
+	owner := os.Args[2]
+	repo := os.Args[3]
 	accessToken := os.Args[4]
+	issueNumber := os.Args[5]
 
-	title := os.Args[5]
-	body := os.Args[6]
-	assignees := os.Args[7]
-	milestone := os.Args[8]
-	labels := os.Args[9]
+	title := os.Args[6]
+	body := os.Args[7]
+	assignees := os.Args[8]
+	milestone := os.Args[9]
+	labels := os.Args[10]
+	state := os.Args[11]
 
 	var userNames []string
 	if assignees != "[]" {
@@ -56,6 +57,10 @@ func UpdateIssue() error {
 		requestBody["body"] = body
 	}
 
+	if state != "" {
+		requestBody["state"] = state
+	}
+
 	if len(userNames) > 0 {
 		requestBody["assignees"] = userNames
 	}
@@ -89,7 +94,7 @@ func UpdateIssue() error {
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		fmt.Errorf("Failed to update issue: %s", resp.Status)
+		return fmt.Errorf("Failed to update issue: %s", resp.Status)
 	}
 
 	fmt.Println("Issue updated successfully!")

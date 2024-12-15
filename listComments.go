@@ -7,14 +7,15 @@ import (
 	"os"
 )
 
-func GetIssue() (*GitHubIssue, error) {
-	//https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}
+func ListComments() (*CommentsResponse, error) {
 	owner := os.Args[2]
 	repo := os.Args[3]
 	accessToken := os.Args[4]
 	issueNumber := os.Args[5]
+	comments := os.Args[6]
 
-	url := "https://api.github.com/repos/" + owner + "/" + repo + "/issues/" + issueNumber
+	url := "https://api.github.com/repos/" + owner + "/" + repo + "/issues/" + issueNumber + "/" + comments
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -28,17 +29,20 @@ func GetIssue() (*GitHubIssue, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("failed to create issue: %s", resp.Status)
+		return nil, fmt.Errorf("Failed to update i: %s", resp.Status)
 	}
 
-	var issue GitHubIssue
-	err = json.NewDecoder(resp.Body).Decode(&issue)
+	var commentsResp CommentsResponse
+	err = json.NewDecoder(resp.Body).Decode(&commentsResp)
 	if err != nil {
 		return nil, err
 	}
 
-	return &issue, nil
+	return &commentsResp, nil
+
 }
+
+// curl -H "Authorization: token YOUR_PERSONAL_ACCESS_TOKEN" \
+//      "https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments"

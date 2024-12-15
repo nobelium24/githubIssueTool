@@ -59,3 +59,19 @@ type Milestone struct {
 	UpdatedAt    time.Time  `json:"updated_at"`    // Timestamp of the last update
 	DueOn        *time.Time `json:"due_on"`        // Due date (nullable)
 }
+
+type CommentRequestBody struct {
+	Body string `json:"body"`
+}
+
+type Comment struct {
+	ID        int    `json:"id"`         // Unique ID of the comment
+	Body      string `json:"body"`       // The content of the comment
+	User      User   `json:"user"`       // User who created the comment
+	CreatedAt string `json:"created_at"` // Timestamp of creation
+	UpdatedAt string `json:"updated_at"` // Timestamp of last update
+	URL       string `json:"url"`        // API URL of the comment
+	HTMLURL   string `json:"html_url"`   // HTML URL of the comment
+}
+
+type CommentsResponse []Comment
