@@ -1,6 +1,7 @@
-package githubissuetool
+package main
 
 import (
+	githubissuetool "GithubIssueTool/githubIssueTool"
 	"fmt"
 	"os"
 )
@@ -18,43 +19,43 @@ func main() {
 			fmt.Println("Usage: ./githubissuetool CREATE <owner> <repo> <accessToken> <[assignee1, assignee2]> <milestone> <[label1, label2]> <title> <body>")
 			return
 		}
-		CreateIssue()
+		githubissuetool.CreateIssue()
 	case "GET":
 		if len(os.Args) != 4 {
 			fmt.Println("Usage: ./githubissuetool GET <owner> <repo> <accessToken>")
 			return
 		}
-		GetIssues()
+		githubissuetool.GetIssues()
 	case "GET_ONE":
 		if len(os.Args) != 5 {
 			fmt.Println("Usage: ./githubissuetool GET_ONE <owner> <repo> <accessToken> <issueNumber>")
 			return
 		}
-		GetIssue()
+		githubissuetool.GetIssue()
 	case "UPDATE":
 		if len(os.Args) != 11 {
 			fmt.Println("Usage: ./githubissuetool UPDATE <owner> <repo> <accessToken> <issueNumber> <title> <body> <[assignee1, assignee2]> <milestone> <[label1, label2]> <state>")
 			return
 		}
-		UpdateIssue()
+		githubissuetool.UpdateIssue()
 	case "LOCK":
 		if len(os.Args) != 6 {
 			fmt.Println("Usage: ./githubissuetool LOCK <owner> <repo> <accessToken> <issueNumber> <LOCK|UNLOCK>")
 			return
 		}
-		LockIssue()
+		githubissuetool.LockIssue()
 	case "COMMENT":
 		if len(os.Args) != 6 {
 			fmt.Println("Usage: ./githubissuetool COMMENT <owner> <repo> <accessToken> <issueNumber> <body>")
 			return
 		}
-		CommentIssue()
+		githubissuetool.CommentIssue()
 	case "LIST_COMMENTS":
 		if len(os.Args) != 5 {
 			fmt.Println("Usage: ./githubissuetool LIST_COMMENTS <owner> <repo> <accessToken> <issueNumber> <comments>")
 			return
 		}
-		ListComments()
+		githubissuetool.ListComments()
 	default:
 		printUsage()
 	}

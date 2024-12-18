@@ -70,3 +70,5 @@ The CLI tool supports the following commands:
 ```
 
 Each command requires specific arguments. Run the CLI tool without any arguments to see the required arguments for each command.
+
+## License
